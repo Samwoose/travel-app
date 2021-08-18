@@ -95,6 +95,15 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
     console.log(`this is name of city: ${nameOfCity}`)
     postNameOfCity('/addCity',nameOfCity)
     
+    fetch('http://localhost:8083/getCoordinate')
+        .then(res => res.json())
+        .then(function(res) {
+            console.log(res.latitude)
+
+                
+        })
+        
+
 }
 
 
