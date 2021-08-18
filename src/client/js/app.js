@@ -54,15 +54,6 @@ let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 
-/**
- * Get analysis information from server and update user interface in the view.
- * @param {object} event submit event
- */
-function toyFunction(event) {
-    event.preventDefault()
-
-    alert('Hey!')
-}
 
 /**
  * async POST request function.
@@ -108,7 +99,6 @@ function toyFunction(event) {
 
 
 export { 
-    toyFunction,
     dataUploader,
     postNameOfCity
 }
