@@ -64,4 +64,51 @@ function toyFunction(event) {
     alert('Hey!')
 }
 
-export { toyFunction }
+/**
+ * async POST request function.
+ * It updates pojectData object in server side(which is run by server.js)
+ *
+ * @param {string} url endpoint that will trigger post request and save the data in server.
+ * @param {Promise} weatherData Promise type and current weather data from OpenWeather API.
+ * @param {string} userResponse User's feeling. It comes from users input on Web journal browser
+ * @param {string} date current data
+ * @return {json} newlyFormedData newly formed weather, date, and user response data in JSON
+ */
+ const postNameOfCity = async (url,nameOfCity) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            nameOfCity : nameOfCity
+        }),
+        }); //pay attention that the temperature from API is converted to Celsius unit. 
+    try {
+        const newlyFormedData = await response.json();
+        return newlyFormedData
+    }catch(error){
+        console.log("For some reason, could not finish weather POSt request");
+    }
+}
+
+
+/**
+ * Get analysis information from server and update user interface in the view.
+ * @param {object} event submit event
+ */
+ function dataUploader(event) {
+    event.preventDefault()
+    const nameOfCity = document.querySelector('#city').value;
+    console.log(`this is name of city: ${nameOfCity}`)
+    postNameOfCity('/addCity',nameOfCity)
+    
+}
+
+
+export { 
+    toyFunction,
+    dataUploader,
+    postNameOfCity
+}

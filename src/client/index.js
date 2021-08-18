@@ -7,9 +7,13 @@
 // import './styles/header.scss'
 import './styles/style.scss'
 import { toyFunction } from './js/app'
+import { dataUploader } from './js/app'
+import { postNameOfCity } from './js/app'
 
 export{
-    toyFunction
+    toyFunction,
+    dataUploader,
+    postNameOfCity
 }
 
 // export {
