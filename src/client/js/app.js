@@ -4,7 +4,10 @@
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-
+const dateRestrictor = () =>{
+    let todayDate = new Date().toISOString().split('T')[0];
+    document.querySelector('#date').setAttribute('min',todayDate);
+}
 
 /**
  * async POST request function.
@@ -67,8 +70,11 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 }
 
+//disable dates in the past in calendar
+dateRestrictor()
 
 export { 
     dataUploader,
-    postNameOfCityNDate
+    postNameOfCityNDate,
+    dateRestrictor
 }

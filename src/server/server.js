@@ -2,12 +2,12 @@
 const dotenv = require('dotenv')
 dotenv.config()
 // Setup empty JS object to act as endpoint for all routes
-let projectData = {}
 let nameOfDestination = ""
 let userName = process.env.USER_NAME_GEO
 let coordinateData = {}
 let arrivalDate = ""
 let apiKeyWather = process.env.API_KEY_WEATHER
+let weatherData = {}
 // Require Express to run server and routes
 var path = require('path')
 const express = require('express')
@@ -84,16 +84,18 @@ app.get('/getCurrentWeather',async function(req, res){
             const responseWeather_json = await responseWeather.json()
             console.log(`this is url for weather: ${url} `)
             console.log(`this is weather response: ${responseWeather_json.data[0].temp}`)
-            // const newCoordinate = {
-            //     latitude: response_json.geonames[0].lat,
-            //     longitude: response_json.geonames[0].lng
-            // }
-            // console.log(newCoordinate)
-            // coordinateData = newCoordinate
-            // res.send(coordinateData);
+            const newWeather = {
+                 temperature: responseWeather_json.data[0].temp,
+                 description: responseWeather_json.data[0].weather.description,
+                 precipitation: responseWeather_json.data[0].precip,
+                 cityName: responseWeather_json.data[0].city_name
+            }
+            console.log(newWeather)
+            weatherData = newWeather
+            res.send(weatherData);
             
         } catch(error){
-            console.log(`For some reason, get coordinate request couldn't finished`,error);
+            console.log(`For some reason, get weather request couldn't finished`,error);
         }
     }
     else{
