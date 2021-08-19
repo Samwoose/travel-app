@@ -15,9 +15,11 @@
         <!-- <label for="zip">Enter Zipcode here</label> -->
         <!-- <input type="text" id="zip" placeholder="enter zip code here"> -->
         <form class="" onsubmit="return Client.dataUploader(event)">
-          <input id="city" type="text" name="input" value="" placeholder="Please, provide url to analyze a post">
+          <input id="city" type="text" name="input" value="" placeholder="Please, provide name of city(destination)">
+          <label for="birthday">Date of arrival:</label>
+          <input type="date" id="date" name="date" value="">
           <input type="submit" name="" value="submit" onclick="return Client.dataUploader(event)" onsubmit="return dataUploader(event)">
-      </form>
+        </form>
       </div>
       <div class ="holder feel">
         <label for="feelings">How are you feeling today?</label>

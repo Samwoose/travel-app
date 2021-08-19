@@ -57,15 +57,14 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 /**
  * async POST request function.
- * It updates pojectData object in server side(which is run by server.js)
+ * It updates name of city(destination) in server side(which is run by server.js)
  *
  * @param {string} url endpoint that will trigger post request and save the data in server.
- * @param {Promise} weatherData Promise type and current weather data from OpenWeather API.
- * @param {string} userResponse User's feeling. It comes from users input on Web journal browser
- * @param {string} date current data
+ * @param {string} nameOfCity Name of city user provides.
+ * @param {string} arrivalDate arrival date user provides.
  * @return {json} newlyFormedData newly formed weather, date, and user response data in JSON
  */
- const postNameOfCity = async (url,nameOfCity) => {
+ const postNameOfCityNDate = async (url,nameOfCity,arrivalDate) => {
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
@@ -73,9 +72,10 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            nameOfCity : nameOfCity
+            nameOfCity : nameOfCity,
+            arrivalDate : arrivalDate
         }),
-        }); //pay attention that the temperature from API is converted to Celsius unit. 
+    }); //pay attention that the temperature from API is converted to Celsius unit. 
     try {
         const newlyFormedData = await response.json();
         return newlyFormedData
@@ -92,8 +92,10 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
  function dataUploader(event) {
     event.preventDefault()
     const nameOfCity = document.querySelector('#city').value;
+    const arrivalDate = document.querySelector('#date').value;
     console.log(`this is name of city: ${nameOfCity}`)
-    postNameOfCity('/addCity',nameOfCity)
+    console.log(`this is name of city: ${arrivalDate}`)
+    postNameOfCityNDate('/addCityNDate',nameOfCity,arrivalDate)
     
     fetch('http://localhost:8083/getCoordinate')
         .then(res => res.json())
@@ -109,5 +111,5 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 export { 
     dataUploader,
-    postNameOfCity
+    postNameOfCityNDate
 }

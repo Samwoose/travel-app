@@ -7,11 +7,11 @@
 // import './styles/header.scss'
 import './styles/style.scss'
 import { dataUploader } from './js/app'
-import { postNameOfCity } from './js/app'
+import { postNameOfCityNDate } from './js/app'
 
 export{
     dataUploader,
-    postNameOfCity
+    postNameOfCityNDate
 }
 
 // export {

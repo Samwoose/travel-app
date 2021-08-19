@@ -3,7 +3,7 @@ let projectData = {}
 let nameOfDestination = ""
 let userName = "threecows"
 let coordinateData = {}
-
+let arrivalDate = ""
 // Require Express to run server and routes
 var path = require('path')
 const express = require('express')
@@ -38,32 +38,13 @@ app.listen(8083, function () {
     console.log('Example app listening on port 8083!')
 })
 
-app.post('/addCity', (req,res)=>{
+app.post('/addCityNDate', (req,res)=>{
     nameOfDestination = req.body.nameOfCity
+    arrivalDate = req.body.arrivalDate
     console.log(`this is name of des: ${nameOfDestination}`)
+    console.log(`this is arrival date: ${arrivalDate}`)
 })
 
-// const coorinateFinder = async(userName, nameOfCity)=>{
-//     const url=`http://api.geonames.org/searchJSON?q=${nameOfCity}&maxRows=1&username=${userName}`;
-//     if(nameOfCity != ""){
-//         try{
-//             const response = await fetch(url)
-//             const newCoordinate = {
-//                 latitude: response.data.geonames[0].lat,
-//                 longitude: response.data.geonames[0].lng
-//             }
-//             coordinateData = newCoordinate
-//             res.sendFile(coordinateData)
-            
-//         } catch(error){
-//             console.log(`For some reason, get coordinate request couldn't finished`,error);
-//         }
-//     }
-//     else{
-//         console.log('Please provide name of destination')
-//     }
-
-// }
 
 app.get('/getCoordinate',async function(req, res){
     const url=`http://api.geonames.org/searchJSON?q=${nameOfDestination}&maxRows=1&username=${userName}`;
