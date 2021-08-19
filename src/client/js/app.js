@@ -102,10 +102,12 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
         .then(res => res.json())
         .then(function(res) {
             console.log(res.latitude)
+            //weather info
+            fetch('http://localhost:8083/getCurrentWeather')
     })
 
-    //weather info
-    fetch('http://localhost:8083/getCurrentWeather')
+    
+    
         // .then(res => res.json())
         // .then(function(res) {
         //     console.log(res.latitude)
