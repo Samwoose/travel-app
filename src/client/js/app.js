@@ -1,5 +1,6 @@
 /* Global Variables */
-
+const numOfDaysInWeek = 7
+const maxNumOfDaysForForcast = 16
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
@@ -7,6 +8,25 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 const dateRestrictor = () =>{
     let todayDate = new Date().toISOString().split('T')[0];
     document.querySelector('#date').setAttribute('min',todayDate);
+}
+
+const numOfDaysCalculator = (arrivalDate) =>{
+    //test
+    const splittedDate = arrivalDate.split('-')
+    //reform date
+    const reformedDate = splittedDate[1] + '/' + splittedDate[2] + '/' + splittedDate[0]
+    // To set two dates to two variables
+    const todayDate = new Date().toLocaleString().split(',')[0]
+    let todayDateObj = new Date(todayDate)
+    let reformedDateObj = new Date(reformedDate);
+         
+    // To calculate the time difference of two dates
+    let differenceInTime = reformedDateObj.getTime() - todayDateObj.getTime();
+         
+    // To calculate the no. of days between two dates
+    let differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+    return parseInt(differenceInDays)
 }
 
 /**
@@ -18,7 +38,7 @@ const dateRestrictor = () =>{
  * @param {string} arrivalDate arrival date user provides.
  * @return {json} newlyFormedData newly formed weather, date, and user response data in JSON
  */
- const postNameOfCityNDate = async (url,nameOfCity,arrivalDate) => {
+ const postNameOfCityNDate = async (url,nameOfCity,arrivalDate,differenceInDays) => {
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
@@ -27,7 +47,8 @@ const dateRestrictor = () =>{
         },
         body: JSON.stringify({
             nameOfCity : nameOfCity,
-            arrivalDate : arrivalDate
+            arrivalDate : arrivalDate,
+            differenceInDays : differenceInDays
         }),
     }); //pay attention that the temperature from API is converted to Celsius unit. 
     try {
@@ -47,9 +68,15 @@ const dateRestrictor = () =>{
     event.preventDefault()
     const nameOfCity = document.querySelector('#city').value;
     const arrivalDate = document.querySelector('#date').value;
+    
+    let differenceInDays = numOfDaysCalculator(arrivalDate)
+    // console.log(`splitted date: ${splittedDate[0]}`)
+    // console.log(`splitted date: ${splittedDate[1]}`)
+    // console.log(`splitted date: ${splittedDate[2]}`)
+    console.log(`This is number of days: ${differenceInDays}`)
     console.log(`this is name of city: ${nameOfCity}`)
     console.log(`this is name of city: ${arrivalDate}`)
-    postNameOfCityNDate('/addCityNDate',nameOfCity,arrivalDate)
+    postNameOfCityNDate('/addCityNDate',nameOfCity,arrivalDate,differenceInDays)
     
     //geo info
     fetch('http://localhost:8083/getCoordinate')
@@ -58,10 +85,21 @@ const dateRestrictor = () =>{
             console.log(res.latitude)
             //weather info
             // fetch('http://localhost:8083/getFutureWeather')
-            fetch('http://localhost:8083/getCurrentWeather')
-            .then(function(res){
-                fetch('http://localhost:8083/getPhotoOfCity')
-            })
+            if(differenceInDays < numOfDaysInWeek){
+                fetch('http://localhost:8083/getCurrentWeather')
+                .then(function(res){
+                    fetch('http://localhost:8083/getPhotoOfCity')
+                })
+            }
+            else if( numOfDaysInWeek <= differenceInDays && differenceInDays <= maxNumOfDaysForForcast){
+                fetch('http://localhost:8083/getFutureWeather')
+                .then(function(res){
+                    fetch('http://localhost:8083/getPhotoOfCity')
+                })
+            }
+            else if(maxNumOfDaysForForcast < differenceInDays){
+                alert('Too far to forcast')
+            }
             
     })
 

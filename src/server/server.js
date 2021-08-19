@@ -8,6 +8,7 @@ let coordinateData = {}
 let arrivalDate = ""
 let apiKeyWather = process.env.API_KEY_WEATHER
 let weatherData = {}
+let differenceInDays = -1
 // Require Express to run server and routes
 var path = require('path')
 const express = require('express')
@@ -44,8 +45,10 @@ app.listen(8083, function () {
 app.post('/addCityNDate', (req,res)=>{
     nameOfDestination = req.body.nameOfCity
     arrivalDate = req.body.arrivalDate
+    differenceInDays = req.body.differenceInDays
     console.log(`this is name of des: ${nameOfDestination}`)
     console.log(`this is arrival date: ${arrivalDate}`)
+    console.log(`this is difference in days: ${differenceInDays}`)
 })
 
 app.get('/getCoordinate',async function(req, res){
@@ -113,9 +116,10 @@ app.get('/getFutureWeather',async function(req, res){
             // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
             const responseWeather_json = await responseWeather.json()
             console.log(`this is url for future weather: ${url} `)
-            for(let i = 0; i <= 15 ; i++){
-                console.log(`this is weather response: ${responseWeather_json.data[i].valid_date}`)
-            }   
+            // for(let i = 0; i <= 15 ; i++){
+            //     console.log(`this is weather response: ${responseWeather_json.data[differenceInDays-1].valid_date}`)
+            // }   
+            console.log(`this is weather response: ${responseWeather_json.data[differenceInDays+1].valid_date}`)
             // const newWeather = {
             //      temperature: responseWeather_json.data[0].temp,
             //      description: responseWeather_json.data[0].weather.description,
@@ -138,8 +142,9 @@ app.get('/getFutureWeather',async function(req, res){
 
 app.get('/getPhotoOfCity',async function(req, res){
     // const url=`https://api.weatherbit.io/v2.0/current?lat=${coordinateData.latitude}&lon=${coordinateData.longitude}&key=${apiKeyWather}&include=minutely`;
-    const url = `https://pixabay.com/api/?key=22992168-25fbd388b9dc34575bc02a3db&q=seoul&image_type=photo`
+    
     if(nameOfDestination != "" && arrivalDate !=""){
+        const url = `https://pixabay.com/api/?key=22992168-25fbd388b9dc34575bc02a3db&q=${nameOfDestination}&image_type=photo`
         try{
             const responseCityPhoto = await fetch(url)
             // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
