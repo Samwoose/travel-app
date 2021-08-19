@@ -47,7 +47,6 @@ app.post('/addCityNDate', (req,res)=>{
     console.log(`this is arrival date: ${arrivalDate}`)
 })
 
-
 app.get('/getCoordinate',async function(req, res){
     const url=`http://api.geonames.org/searchJSON?q=${nameOfDestination}&maxRows=1&username=${userName}`;
     if(nameOfDestination != ""){
@@ -75,3 +74,29 @@ app.get('/getCoordinate',async function(req, res){
 
 })
 
+app.get('/getCurrentWeather',async function(req, res){
+    const url=`https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=826468bd24294de18fcca40baf517ede&include=minutely`;
+    if(nameOfDestination != "" && arrivalDate !=""){
+        try{
+            const responseWeather = await fetch(url)
+            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
+            const responseWeather_json = await responseWeather.json()
+            console.log(`this is url for weather: ${url} `)
+            console.log(`this is weather response: ${responseWeather_json.data[0].temp}`)
+            // const newCoordinate = {
+            //     latitude: response_json.geonames[0].lat,
+            //     longitude: response_json.geonames[0].lng
+            // }
+            // console.log(newCoordinate)
+            // coordinateData = newCoordinate
+            // res.send(coordinateData);
+            
+        } catch(error){
+            console.log(`For some reason, get coordinate request couldn't finished`,error);
+        }
+    }
+    else{
+        console.log('Please provide name of destination, and arrival date')
+    }
+
+})

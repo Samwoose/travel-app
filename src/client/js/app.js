@@ -97,13 +97,19 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
     console.log(`this is name of city: ${arrivalDate}`)
     postNameOfCityNDate('/addCityNDate',nameOfCity,arrivalDate)
     
+    //geo info
     fetch('http://localhost:8083/getCoordinate')
         .then(res => res.json())
         .then(function(res) {
             console.log(res.latitude)
+    })
 
-                
-        })
+    //weather info
+    fetch('http://localhost:8083/getCurrentWeather')
+        // .then(res => res.json())
+        // .then(function(res) {
+        //     console.log(res.latitude)
+        // })
         
 
 }
