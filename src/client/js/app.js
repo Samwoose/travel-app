@@ -57,7 +57,12 @@ const dateRestrictor = () =>{
         .then(function(res) {
             console.log(res.latitude)
             //weather info
+            // fetch('http://localhost:8083/getFutureWeather')
             fetch('http://localhost:8083/getCurrentWeather')
+            .then(function(res){
+                fetch('http://localhost:8083/getPhotoOfCity')
+            })
+            
     })
 
     

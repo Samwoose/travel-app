@@ -103,3 +103,66 @@ app.get('/getCurrentWeather',async function(req, res){
     }
 
 })
+
+app.get('/getFutureWeather',async function(req, res){
+    // const url=`https://api.weatherbit.io/v2.0/current?lat=${coordinateData.latitude}&lon=${coordinateData.longitude}&key=${apiKeyWather}&include=minutely`;
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${coordinateData.latitude}&lon=${coordinateData.longitude}&key=${apiKeyWather}`
+    if(nameOfDestination != "" && arrivalDate !=""){
+        try{
+            const responseWeather = await fetch(url)
+            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
+            const responseWeather_json = await responseWeather.json()
+            console.log(`this is url for future weather: ${url} `)
+            for(let i = 0; i <= 15 ; i++){
+                console.log(`this is weather response: ${responseWeather_json.data[i].valid_date}`)
+            }   
+            // const newWeather = {
+            //      temperature: responseWeather_json.data[0].temp,
+            //      description: responseWeather_json.data[0].weather.description,
+            //      precipitation: responseWeather_json.data[0].precip,
+            //      cityName: responseWeather_json.data[0].city_name
+            // }
+            // console.log(newWeather)
+            // weatherData = newWeather
+            // res.send(weatherData);
+            
+        } catch(error){
+            console.log(`For some reason, get weather request couldn't finished`,error);
+        }
+    }
+    else{
+        console.log('Please provide name of destination, and arrival date')
+    }
+
+})
+
+app.get('/getPhotoOfCity',async function(req, res){
+    // const url=`https://api.weatherbit.io/v2.0/current?lat=${coordinateData.latitude}&lon=${coordinateData.longitude}&key=${apiKeyWather}&include=minutely`;
+    const url = `https://pixabay.com/api/?key=22992168-25fbd388b9dc34575bc02a3db&q=seoul&image_type=photo`
+    if(nameOfDestination != "" && arrivalDate !=""){
+        try{
+            const responseCityPhoto = await fetch(url)
+            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
+            const responseCityPhoto_json = await responseCityPhoto.json()
+            console.log(`this is url for city photo: ${url} `)
+            console.log(`this is photo response: ${responseCityPhoto_json.hits[0].previewURL}`)
+               
+            // const newWeather = {
+            //      temperature: responseWeather_json.data[0].temp,
+            //      description: responseWeather_json.data[0].weather.description,
+            //      precipitation: responseWeather_json.data[0].precip,
+            //      cityName: responseWeather_json.data[0].city_name
+            // }
+            // console.log(newWeather)
+            // weatherData = newWeather
+            // res.send(weatherData);
+            
+        } catch(error){
+            console.log(`For some reason, get weather request couldn't finished`,error);
+        }
+    }
+    else{
+        console.log('Please provide name of destination, and arrival date')
+    }
+
+})
