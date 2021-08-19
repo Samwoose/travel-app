@@ -1,15 +1,17 @@
+//Use .env file for private values
+const dotenv = require('dotenv')
+dotenv.config()
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {}
 let nameOfDestination = ""
-let userName = "threecows"
+let userName = process.env.USER_NAME_GEO
 let coordinateData = {}
 let arrivalDate = ""
 // Require Express to run server and routes
 var path = require('path')
 const express = require('express')
-const dotenv = require('dotenv')
 const fetch = require('node-fetch')
-dotenv.config()
+
 // Start up an instance of app
 const app = express()
 
