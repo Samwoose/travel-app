@@ -120,15 +120,15 @@ app.get('/getFutureWeather',async function(req, res){
             //     console.log(`this is weather response: ${responseWeather_json.data[differenceInDays-1].valid_date}`)
             // }   
             console.log(`this is weather response: ${responseWeather_json.data[differenceInDays+1].valid_date}`)
-            // const newWeather = {
-            //      temperature: responseWeather_json.data[0].temp,
-            //      description: responseWeather_json.data[0].weather.description,
-            //      precipitation: responseWeather_json.data[0].precip,
-            //      cityName: responseWeather_json.data[0].city_name
-            // }
-            // console.log(newWeather)
-            // weatherData = newWeather
-            // res.send(weatherData);
+            const newWeather = {
+                 temperature: responseWeather_json.data[differenceInDays+1].temp,
+                 description: responseWeather_json.data[differenceInDays+1].weather.description,
+                 precipitation: responseWeather_json.data[differenceInDays+1].precip,
+                 cityName: responseWeather_json.city_name
+            }
+            console.log(newWeather)
+            weatherData = newWeather
+            res.send(weatherData);
             
         } catch(error){
             console.log(`For some reason, get weather request couldn't finished`,error);
