@@ -7,6 +7,7 @@ let nameOfDestination = ""
 let userName = process.env.USER_NAME_GEO
 let coordinateData = {}
 let arrivalDate = ""
+let apiKeyWather = process.env.API_KEY_WEATHER
 // Require Express to run server and routes
 var path = require('path')
 const express = require('express')
@@ -75,7 +76,7 @@ app.get('/getCoordinate',async function(req, res){
 })
 
 app.get('/getCurrentWeather',async function(req, res){
-    const url=`https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=826468bd24294de18fcca40baf517ede&include=minutely`;
+    const url=`https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=${apiKeyWather}&include=minutely`;
     if(nameOfDestination != "" && arrivalDate !=""){
         try{
             const responseWeather = await fetch(url)
