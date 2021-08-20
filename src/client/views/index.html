@@ -18,7 +18,7 @@
           <input id="city" type="text" name="input" value="" placeholder="Please, provide name of city(destination)">
           <label for="birthday">Date of arrival:</label>
           <input type="date" id="date" name="date" value="">
-          <input type="submit" name="" value="submit" onclick="return Client.dataUploader(event)" onsubmit="return dataUploader(event)">
+          <input id="submit" type="submit" name="" value="submit" onclick="return Client.dataUploader(event)" onsubmit="return dataUploader(event)">
         </form>
       </div>
       <div class="resultArea">
@@ -43,10 +43,11 @@
           <!-- <label for="feelings">How are you feeling today?</label> -->
           <!-- <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea> -->
           <!-- <button id="generate" type = "submit"> Generate </button> -->
-          <input type="button" value="Reset" onClick="document.location.reload(true)">
+          <input id="resetButton" type="button" value="Reset" onClick="document.location.reload(true)">
         </div>
       </div>
     </div>
+    <footer>Powered by BringToReality</footer>
 <!-- <script src="app.js" type="text/javascript"></script> -->
 
   </body>
