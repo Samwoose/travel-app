@@ -89,12 +89,20 @@ const numOfDaysCalculator = (arrivalDate) =>{
                 fetch('http://localhost:8083/getCurrentWeather')
                 .then(function(res){
                     fetch('http://localhost:8083/getPhotoOfCity')
+                    .then(function(res){
+                        console.log('here1')
+                        fetch('http://localhost:8083/getFactOnCountry')
+                    })
                 })
             }
             else if( numOfDaysInWeek <= differenceInDays && differenceInDays <= maxNumOfDaysForForcast){
                 fetch('http://localhost:8083/getFutureWeather')
                 .then(function(res){
                     fetch('http://localhost:8083/getPhotoOfCity')
+                    .then(function(res){
+                        console.log('here2')
+                        fetch('http://localhost:8083/getFactOnCountry')
+                    })
                 })
             }
             else if(maxNumOfDaysForForcast < differenceInDays){
