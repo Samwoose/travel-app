@@ -129,7 +129,8 @@ const numOfDaysCalculator = (arrivalDate) =>{
                             document.getElementById('language').innerHTML = "Language: " + dataforUI.language
                             document.getElementById('region').innerHTML = "Region: " + dataforUI.region
                             document.getElementById('currency').innerHTML = "Currency: " + dataforUI.currency
-                            // document.getElementById('').innerHTML = "" + dataforUI.
+                            document.getElementById('cityImage').src = dataforUI.photoURL
+                            document.getElementById('cityImage').alt = "City Image"
 
                         })
                     })
