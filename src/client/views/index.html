@@ -9,7 +9,7 @@
   <body>
     <div id = "app">
       <div class ="holder headline">
-      Weather Journal App
+      Plan Your Trip!
       </div>
       <div class ="holder zip">
         <!-- <label for="zip">Enter Zipcode here</label> -->
@@ -21,18 +21,26 @@
           <input type="submit" name="" value="submit" onclick="return Client.dataUploader(event)" onsubmit="return dataUploader(event)">
         </form>
       </div>
-      <div class ="holder feel">
-        <label for="feelings">How are you feeling today?</label>
-        <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
-        <button id="generate" type = "submit"> Generate </button>
-      </div>
       <div class ="holder entry">
-        <div class = "title">Most Recent Entry</div>
+        <div id = "title_weather"></div>
         <div id = "entryHolder">
-          <div id = "date"></div> 
-          <div id = "temp"></div>
-          <div id = "content"></div>
+          <div id = "description"></div> 
+          <div id = "temperature"></div>
+          <div id = "percipitation"></div>
+          <div id ="cityName"></div>
         </div>
+        <div id = "title_fact"></div>
+        <div id = "entryHolder">
+          <div id = "language"></div> 
+          <div id = "region"></div>
+          <div id = "currency"></div>
+        </div>
+      </div>
+      <div class ="holder feel">
+        <!-- <label for="feelings">How are you feeling today?</label> -->
+        <!-- <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea> -->
+        <!-- <button id="generate" type = "submit"> Generate </button> -->
+        <input type="button" value="Reload Page" onClick="document.location.reload(true)">
       </div>
     </div>
 <!-- <script src="app.js" type="text/javascript"></script> -->
