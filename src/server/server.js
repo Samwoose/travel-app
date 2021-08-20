@@ -173,8 +173,9 @@ app.get('/getFactOnCountry',async function(req, res){
                  region: responseFacts_json.region,
                  currency: responseFacts_json.currencies[0].code
             }
-            console.log(newFacts)
+            
             factsData = newFacts
+            console.log(factsData)
             res.send(factsData);       
         } catch(error){
             console.log(`For some reason, get fact request couldn't be finished`,error);

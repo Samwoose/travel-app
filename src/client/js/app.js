@@ -1,6 +1,16 @@
 /* Global Variables */
 const numOfDaysInWeek = 7
 const maxNumOfDaysForForcast = 16
+let dataforUI = {
+    temperature:"",
+    description:"",
+    precipitation:"",
+    cityName:"",
+    language:"",
+    region:"",
+    currency:"",
+    photoURL:""
+}
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
@@ -87,11 +97,41 @@ const numOfDaysCalculator = (arrivalDate) =>{
             // fetch('http://localhost:8083/getFutureWeather')
             if(differenceInDays < numOfDaysInWeek){
                 fetch('http://localhost:8083/getCurrentWeather')
+                .then(res=>res.json())
                 .then(function(res){
+                    dataforUI.temperature = res.temperature
+                    dataforUI.description = res.description
+                    dataforUI.precipitation = res.precipitation
+                    dataforUI.cityName = res.cityName
                     fetch('http://localhost:8083/getPhotoOfCity')
+                    .then(res=>res.json())
                     .then(function(res){
                         console.log('here1')
+                        dataforUI.photoURL = res.photoURL
                         fetch('http://localhost:8083/getFactOnCountry')
+                        .then(res=>res.json())
+                        .then(function(res){
+                            dataforUI.language = res.language
+                            dataforUI.region = res.region
+                            dataforUI.currency = res.currency
+                            console.log(`this is data for ui1 : ${dataforUI.temperature}`)
+                            console.log(`this is data for ui2 : ${dataforUI.description}`)
+                            console.log(`this is data for ui3 : ${dataforUI.precipitation}`)
+                            console.log(`this is data for ui4 : ${dataforUI.cityName}`)
+                            console.log(`this is data for ui5 : ${dataforUI.photoURL}`)
+                            console.log(`this is data for ui6 : ${dataforUI.language}`)
+                            console.log(`this is data for ui7 : ${dataforUI.region}`)
+                            console.log(`this is data for ui8 : ${dataforUI.currency}`)
+                            document.getElementById('description').innerHTML = "Description: " + dataforUI.description
+                            document.getElementById('temperature').innerHTML = "Temperature: " + dataforUI.temperature
+                            document.getElementById('percipitation').innerHTML = "Percipitation: " + dataforUI.precipitation
+                            document.getElementById('cityName').innerHTML = "City: " + dataforUI.cityName
+                            document.getElementById('language').innerHTML = "Language: " + dataforUI.language
+                            document.getElementById('region').innerHTML = "Region: " + dataforUI.region
+                            document.getElementById('currency').innerHTML = "Currency: " + dataforUI.currency
+                            // document.getElementById('').innerHTML = "" + dataforUI.
+
+                        })
                     })
                 })
             }
