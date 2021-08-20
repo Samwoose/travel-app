@@ -2,12 +2,12 @@
 const dotenv = require('dotenv')
 dotenv.config()
 // Setup empty JS object to act as endpoint for all routes
-let nameOfDestination = ""
 let userName = process.env.USER_NAME_GEO
-let coordinateNCodeData = {}
-let arrivalDate = ""
 let apiKeyWather = process.env.API_KEY_WEATHER
 let apiKeyPhoto = process.env.API_KEY_PHOTO
+let nameOfDestination = ""
+let coordinateNCodeData = {}
+let arrivalDate = ""
 let weatherData = {}
 let differenceInDays = -1  //random initial value
 let factsData = {}
@@ -59,7 +59,6 @@ app.get('/getCoordinate',async function(req, res){
     if(nameOfDestination != ""){
         try{
             const response = await fetch(url)
-            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
             const response_json = await response.json()
             console.log(`this is url for geo: ${url} `)
             console.log(`this is geo response: ${response_json.geonames[0].lat}`)
@@ -87,7 +86,6 @@ app.get('/getCurrentWeather',async function(req, res){
     if(nameOfDestination != "" && arrivalDate !=""){
         try{
             const responseWeather = await fetch(url)
-            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
             const responseWeather_json = await responseWeather.json()
             console.log(`this is url for weather: ${url} `)
             console.log(`this is weather response: ${responseWeather_json.data[0].temp}`)
@@ -112,17 +110,12 @@ app.get('/getCurrentWeather',async function(req, res){
 })
 
 app.get('/getFutureWeather',async function(req, res){
-    // const url=`https://api.weatherbit.io/v2.0/current?lat=${coordinateData.latitude}&lon=${coordinateData.longitude}&key=${apiKeyWather}&include=minutely`;
     const url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${coordinateNCodeData.latitude}&lon=${coordinateNCodeData.longitude}&key=${apiKeyWather}`
     if(nameOfDestination != "" && arrivalDate !=""){
         try{
             const responseWeather = await fetch(url)
-            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
             const responseWeather_json = await responseWeather.json()
-            console.log(`this is url for future weather: ${url} `)
-            // for(let i = 0; i <= 15 ; i++){
-            //     console.log(`this is weather response: ${responseWeather_json.data[differenceInDays-1].valid_date}`)
-            // }   
+            console.log(`this is url for future weather: ${url} `)   
             console.log(`this is weather response: ${responseWeather_json.data[differenceInDays+1].valid_date}`)
             const newWeather = {
                  temperature: responseWeather_json.data[differenceInDays+1].temp,
@@ -141,17 +134,13 @@ app.get('/getFutureWeather',async function(req, res){
     else{
         console.log('Please provide name of destination, and arrival date')
     }
-
 })
 
 app.get('/getPhotoOfCity',async function(req, res){
-    // const url=`https://api.weatherbit.io/v2.0/current?lat=${coordinateData.latitude}&lon=${coordinateData.longitude}&key=${apiKeyWather}&include=minutely`;
-    
     if(nameOfDestination != "" && arrivalDate !=""){
         const url = `https://pixabay.com/api/?key=${apiKeyPhoto}&q=${nameOfDestination}&image_type=photo`
         try{
             const responseCityPhoto = await fetch(url)
-            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
             const responseCityPhoto_json = await responseCityPhoto.json()
             console.log(`this is url for city photo: ${url} `)
             console.log(`this is photo response: ${responseCityPhoto_json.hits[0].previewURL}`)
@@ -161,8 +150,7 @@ app.get('/getPhotoOfCity',async function(req, res){
             }
             console.log(newPhoto)
             photoData = newPhoto
-            res.send(photoData);
-            
+            res.send(photoData);       
         } catch(error){
             console.log(`For some reason, get weather request couldn't be finished`,error);
         }
@@ -170,7 +158,6 @@ app.get('/getPhotoOfCity',async function(req, res){
     else{
         console.log('Please provide name of destination, and arrival date')
     }
-
 })
 
 
@@ -179,11 +166,8 @@ app.get('/getFactOnCountry',async function(req, res){
         const url = `https://restcountries.eu/rest/v2/alpha/${coordinateNCodeData.countryCode}`
         try{
             const responseFacts = await fetch(url)
-            // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
             const responseFacts_json = await responseFacts.json()
-            console.log(`this is url for fact: ${url}`)
-            // console.log(`this is photo response: ${responseFacts_json.hits[0].previewURL}`)
-               
+            console.log(`this is url for fact: ${url}`)   
             const newFacts = {
                  language: responseFacts_json.languages[0].name,
                  region: responseFacts_json.region,
@@ -191,8 +175,7 @@ app.get('/getFactOnCountry',async function(req, res){
             }
             console.log(newFacts)
             factsData = newFacts
-            res.send(factsData);
-            
+            res.send(factsData);       
         } catch(error){
             console.log(`For some reason, get fact request couldn't be finished`,error);
         }
@@ -200,5 +183,4 @@ app.get('/getFactOnCountry',async function(req, res){
     else{
         console.log('Please acquire coordinate and country code first.')
     }
-
 })
