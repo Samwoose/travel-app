@@ -7,6 +7,7 @@ let userName = process.env.USER_NAME_GEO
 let coordinateNCodeData = {}
 let arrivalDate = ""
 let apiKeyWather = process.env.API_KEY_WEATHER
+let apiKeyPhoto = process.env.API_KEY_PHOTO
 let weatherData = {}
 let differenceInDays = -1  //random initial value
 let factsData = {}
@@ -147,7 +148,7 @@ app.get('/getPhotoOfCity',async function(req, res){
     // const url=`https://api.weatherbit.io/v2.0/current?lat=${coordinateData.latitude}&lon=${coordinateData.longitude}&key=${apiKeyWather}&include=minutely`;
     
     if(nameOfDestination != "" && arrivalDate !=""){
-        const url = `https://pixabay.com/api/?key=22992168-25fbd388b9dc34575bc02a3db&q=${nameOfDestination}&image_type=photo`
+        const url = `https://pixabay.com/api/?key=${apiKeyPhoto}&q=${nameOfDestination}&image_type=photo`
         try{
             const responseCityPhoto = await fetch(url)
             // const response = await fetch('http://api.geonames.org/searchJSON?q=seoul&maxRows=1&username=threecows')
