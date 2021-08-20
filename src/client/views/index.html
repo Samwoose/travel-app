@@ -7,40 +7,44 @@
     <!-- <link rel="stylesheet" href="../styles/style.scss"> -->
   </head>
   <body>
-    <div id = "app">
-      <div class ="holder headline">
-      Plan Your Trip!
+    <div id="app">
+      <div class="holderheadline">
+        Plan Your Trip!
       </div>
-      <div class ="holder zip">
+      <div class="inputArea">
         <!-- <label for="zip">Enter Zipcode here</label> -->
         <!-- <input type="text" id="zip" placeholder="enter zip code here"> -->
-        <form class="" onsubmit="return Client.dataUploader(event)">
+        <form class="inputFormArea" onsubmit="return Client.dataUploader(event)">
           <input id="city" type="text" name="input" value="" placeholder="Please, provide name of city(destination)">
           <label for="birthday">Date of arrival:</label>
           <input type="date" id="date" name="date" value="">
           <input type="submit" name="" value="submit" onclick="return Client.dataUploader(event)" onsubmit="return dataUploader(event)">
         </form>
       </div>
-      <div class ="holder entry">
-        <div id = "title_weather"></div>
-        <div id = "entryHolder">
-          <div id = "description"></div> 
-          <div id = "temperature"></div>
-          <div id = "percipitation"></div>
-          <div id ="cityName"></div>
+      <div class="resultArea">
+        <div class ="holder entry">
+          <div id = "title_weather"></div>
+          <div id = "entryHolder">
+            <div id = "description"></div> 
+            <div id = "temperature"></div>
+            <div id = "percipitation"></div>
+            <div id ="cityName"></div>
+          </div>
+          <div id = "title_fact"></div>
+          <div id = "entryHolder">
+            <div id = "language"></div> 
+            <div id = "region"></div>
+            <div id = "currency"></div>
+            <div id = "cityImg"></div>
+          </div>
+        
         </div>
-        <div id = "title_fact"></div>
-        <div id = "entryHolder">
-          <div id = "language"></div> 
-          <div id = "region"></div>
-          <div id = "currency"></div>
+        <div class ="holder reset">
+          <!-- <label for="feelings">How are you feeling today?</label> -->
+          <!-- <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea> -->
+          <!-- <button id="generate" type = "submit"> Generate </button> -->
+          <input type="button" value="Reset" onClick="document.location.reload(true)">
         </div>
-      </div>
-      <div class ="holder feel">
-        <!-- <label for="feelings">How are you feeling today?</label> -->
-        <!-- <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea> -->
-        <!-- <button id="generate" type = "submit"> Generate </button> -->
-        <input type="button" value="Reload Page" onClick="document.location.reload(true)">
       </div>
     </div>
 <!-- <script src="app.js" type="text/javascript"></script> -->
