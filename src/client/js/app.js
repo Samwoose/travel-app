@@ -1,5 +1,3 @@
-// import {numOfDaysCalculator} from 'daysCalculator'
-
 /* Global Variables */
 const numOfDaysInWeek = 7
 const maxNumOfDaysForForcast = 16
@@ -20,28 +18,6 @@ const dateRestrictor = () =>{
     document.querySelector('#date').setAttribute('min',todayDate);
 }
 
-// /**
-//  * Calculate number of days between arrival date and today.
-//  * @param {string} arrivalDate arrival date in string type. e.g. 2021-08-21
-//  */
-// const numOfDaysCalculator = (arrivalDate) =>{
-//     //test
-//     const splittedDate = arrivalDate.split('-')
-//     //reform date
-//     const reformedDate = splittedDate[1] + '/' + splittedDate[2] + '/' + splittedDate[0]
-//     // To set two dates to two variables
-//     const todayDate = new Date().toLocaleString().split(',')[0]
-//     let todayDateObj = new Date(todayDate)
-//     let reformedDateObj = new Date(reformedDate);
-         
-//     // To calculate the time difference of two dates
-//     let differenceInTime = reformedDateObj.getTime() - todayDateObj.getTime();
-         
-//     // To calculate the no. of days between two dates
-//     let differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
-//     return parseInt(differenceInDays)
-// }
 
 /**
  * Help update view in html.
@@ -58,7 +34,6 @@ const fetchCurrentHelper = ()=>{
                     fetch('http://localhost:8083/getPhotoOfCity')
                     .then(res=>res.json())
                     .then(function(res){
-                        console.log('here1')
                         dataforUI.photoURL = res.photoURL
                         fetch('http://localhost:8083/getFactOnCountry')
                         .then(res=>res.json())
@@ -66,14 +41,6 @@ const fetchCurrentHelper = ()=>{
                             dataforUI.language = res.language
                             dataforUI.region = res.region
                             dataforUI.currency = res.currency
-                            // console.log(`this is data for ui1 : ${dataforUI.temperature}`)
-                            // console.log(`this is data for ui2 : ${dataforUI.description}`)
-                            // console.log(`this is data for ui3 : ${dataforUI.precipitation}`)
-                            // console.log(`this is data for ui4 : ${dataforUI.cityName}`)
-                            // console.log(`this is data for ui5 : ${dataforUI.photoURL}`)
-                            // console.log(`this is data for ui6 : ${dataforUI.language}`)
-                            // console.log(`this is data for ui7 : ${dataforUI.region}`)
-                            // console.log(`this is data for ui8 : ${dataforUI.currency}`)
                             document.getElementById('forcastDate').innerHTML = "Forcast Date: " + dataforUI.forcastDate
                             document.getElementById('description').innerHTML = "Description: " + dataforUI.description
                             document.getElementById('temperature').innerHTML = "Temperature: " + dataforUI.temperature
@@ -107,7 +74,6 @@ const fetchFutureHelper = ()=>{
                     fetch('http://localhost:8083/getPhotoOfCity')
                     .then(res=>res.json())
                     .then(function(res){
-                        console.log('here1')
                         dataforUI.photoURL = res.photoURL
                         fetch('http://localhost:8083/getFactOnCountry')
                         .then(res=>res.json())
@@ -115,14 +81,6 @@ const fetchFutureHelper = ()=>{
                             dataforUI.language = res.language
                             dataforUI.region = res.region
                             dataforUI.currency = res.currency
-                            // console.log(`this is data for ui1 : ${dataforUI.temperature}`)
-                            // console.log(`this is data for ui2 : ${dataforUI.description}`)
-                            // console.log(`this is data for ui3 : ${dataforUI.precipitation}`)
-                            // console.log(`this is data for ui4 : ${dataforUI.cityName}`)
-                            // console.log(`this is data for ui5 : ${dataforUI.photoURL}`)
-                            // console.log(`this is data for ui6 : ${dataforUI.language}`)
-                            // console.log(`this is data for ui7 : ${dataforUI.region}`)
-                            // console.log(`this is data for ui8 : ${dataforUI.currency}`)
                             document.getElementById('forcastDate').innerHTML = "Forcast Date: " + dataforUI.forcastDate
                             document.getElementById('description').innerHTML = "Description: " + dataforUI.description
                             document.getElementById('temperature').innerHTML = "Temperature: " + dataforUI.temperature
@@ -163,7 +121,7 @@ const fetchFutureHelper = ()=>{
             arrivalDate : arrivalDate,
             differenceInDays : differenceInDays
         }),
-    }); //pay attention that the temperature from API is converted to Celsius unit. 
+    });  
     try {
         const newlyFormedData = await response.json();
         return newlyFormedData
@@ -183,21 +141,13 @@ const fetchFutureHelper = ()=>{
     const arrivalDate = document.querySelector('#date').value;
     
     let differenceInDays = Client.numOfDaysCalculator(arrivalDate)
-    // console.log(`splitted date: ${splittedDate[0]}`)
-    // console.log(`splitted date: ${splittedDate[1]}`)
-    // console.log(`splitted date: ${splittedDate[2]}`)
-    console.log(`This is number of days: ${differenceInDays}`)
-    console.log(`this is name of city: ${nameOfCity}`)
-    console.log(`this is name of city: ${arrivalDate}`)
     postNameOfCityNDate('/addCityNDate',nameOfCity,arrivalDate,differenceInDays)
     
     //geo info
     fetch('http://localhost:8083/getCoordinate')
         .then(res => res.json())
         .then(function(res) {
-            console.log(res.latitude)
             //weather info
-            // fetch('http://localhost:8083/getFutureWeather')
             if(differenceInDays < numOfDaysInWeek){
                 fetchCurrentHelper()
             }
@@ -206,18 +156,8 @@ const fetchFutureHelper = ()=>{
             }
             else if(maxNumOfDaysForForcast < differenceInDays){
                 alert('Too far to forcast')
-            }
-            
+            }      
     })
-
-    
-    
-        // .then(res => res.json())
-        // .then(function(res) {
-        //     console.log(res.latitude)
-        // })
-        
-
 }
 
 //disable dates in the past in calendar
@@ -227,5 +167,4 @@ export {
     dataUploader,
     postNameOfCityNDate,
     dateRestrictor,
-    // numOfDaysCalculator
 }

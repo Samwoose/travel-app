@@ -134,7 +134,6 @@ app.get('/getPhotoOfCity',async function(req, res){
             const newPhoto = {
                  photoURL: responseCityPhoto_json.hits[0].previewURL
             }
-            console.log(newPhoto)
             photoData = newPhoto
             res.send(photoData);       
         } catch(error){
