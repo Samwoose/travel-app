@@ -12,9 +12,6 @@ let dataforUI = {
     currency:"",
     photoURL:""
 }
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 const dateRestrictor = () =>{
     let todayDate = new Date().toISOString().split('T')[0];
