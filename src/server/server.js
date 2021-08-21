@@ -49,9 +49,6 @@ app.post('/addCityNDate', (req,res)=>{
     nameOfDestination = req.body.nameOfCity
     arrivalDate = req.body.arrivalDate
     differenceInDays = req.body.differenceInDays
-    console.log(`this is name of des: ${nameOfDestination}`)
-    console.log(`this is arrival date: ${arrivalDate}`)
-    console.log(`this is difference in days: ${differenceInDays}`)
 })
 
 app.get('/getCoordinate',async function(req, res){
@@ -60,14 +57,11 @@ app.get('/getCoordinate',async function(req, res){
         try{
             const response = await fetch(url)
             const response_json = await response.json()
-            console.log(`this is url for geo: ${url} `)
-            console.log(`this is geo response: ${response_json.geonames[0].lat}`)
             const newCoordinateNCode = {
                 latitude: response_json.geonames[0].lat,
                 longitude: response_json.geonames[0].lng,
                 countryCode: response_json.geonames[0].countryCode
             }
-            console.log(newCoordinateNCode)
             coordinateNCodeData = newCoordinateNCode
             res.send(coordinateNCodeData);
             
@@ -87,8 +81,6 @@ app.get('/getCurrentWeather',async function(req, res){
         try{
             const responseWeather = await fetch(url)
             const responseWeather_json = await responseWeather.json()
-            console.log(`this is url for weather: ${url} `)
-            console.log(`this is weather response: ${responseWeather_json.data[0].temp}`)
             const newWeather = {
                 forcastDate: responseWeather_json.data[0].datetime,
                  temperature: responseWeather_json.data[0].temp,
@@ -96,7 +88,6 @@ app.get('/getCurrentWeather',async function(req, res){
                  precipitation: responseWeather_json.data[0].precip,
                  cityName: responseWeather_json.data[0].city_name
             }
-            console.log(newWeather)
             weatherData = newWeather
             res.send(weatherData);
             
@@ -116,8 +107,6 @@ app.get('/getFutureWeather',async function(req, res){
         try{
             const responseWeather = await fetch(url)
             const responseWeather_json = await responseWeather.json()
-            console.log(`this is url for future weather: ${url} `)   
-            console.log(`this is weather response: ${responseWeather_json.data[differenceInDays].valid_date}`)
             const newWeather = {
                  forcastDate: responseWeather_json.data[differenceInDays].datetime,
                  temperature: responseWeather_json.data[differenceInDays].temp,
@@ -125,10 +114,8 @@ app.get('/getFutureWeather',async function(req, res){
                  precipitation: responseWeather_json.data[differenceInDays].precip,
                  cityName: responseWeather_json.city_name
             }
-            console.log(newWeather)
             weatherData = newWeather
             res.send(weatherData);
-            
         } catch(error){
             console.log(`For some reason, get weather request couldn't be finished`,error);
         }
@@ -143,10 +130,7 @@ app.get('/getPhotoOfCity',async function(req, res){
         const url = `https://pixabay.com/api/?key=${apiKeyPhoto}&q=${nameOfDestination}&image_type=photo`
         try{
             const responseCityPhoto = await fetch(url)
-            const responseCityPhoto_json = await responseCityPhoto.json()
-            console.log(`this is url for city photo: ${url} `)
-            console.log(`this is photo response: ${responseCityPhoto_json.hits[0].previewURL}`)
-               
+            const responseCityPhoto_json = await responseCityPhoto.json()   
             const newPhoto = {
                  photoURL: responseCityPhoto_json.hits[0].previewURL
             }
@@ -169,7 +153,6 @@ app.get('/getFactOnCountry',async function(req, res){
         try{
             const responseFacts = await fetch(url)
             const responseFacts_json = await responseFacts.json()
-            console.log(`this is url for fact: ${url}`)   
             const newFacts = {
                  language: responseFacts_json.languages[0].name,
                  region: responseFacts_json.region,
@@ -177,7 +160,6 @@ app.get('/getFactOnCountry',async function(req, res){
             }
             
             factsData = newFacts
-            console.log(factsData)
             res.send(factsData);       
         } catch(error){
             console.log(`For some reason, get fact request couldn't be finished`,error);
