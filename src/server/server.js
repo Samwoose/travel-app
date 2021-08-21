@@ -90,6 +90,7 @@ app.get('/getCurrentWeather',async function(req, res){
             console.log(`this is url for weather: ${url} `)
             console.log(`this is weather response: ${responseWeather_json.data[0].temp}`)
             const newWeather = {
+                forcastDate: responseWeather_json.data[0].datetime,
                  temperature: responseWeather_json.data[0].temp,
                  description: responseWeather_json.data[0].weather.description,
                  precipitation: responseWeather_json.data[0].precip,
@@ -116,11 +117,12 @@ app.get('/getFutureWeather',async function(req, res){
             const responseWeather = await fetch(url)
             const responseWeather_json = await responseWeather.json()
             console.log(`this is url for future weather: ${url} `)   
-            console.log(`this is weather response: ${responseWeather_json.data[differenceInDays+1].valid_date}`)
+            console.log(`this is weather response: ${responseWeather_json.data[differenceInDays].valid_date}`)
             const newWeather = {
-                 temperature: responseWeather_json.data[differenceInDays+1].temp,
-                 description: responseWeather_json.data[differenceInDays+1].weather.description,
-                 precipitation: responseWeather_json.data[differenceInDays+1].precip,
+                 forcastDate: responseWeather_json.data[differenceInDays].datetime,
+                 temperature: responseWeather_json.data[differenceInDays].temp,
+                 description: responseWeather_json.data[differenceInDays].weather.description,
+                 precipitation: responseWeather_json.data[differenceInDays].precip,
                  cityName: responseWeather_json.city_name
             }
             console.log(newWeather)

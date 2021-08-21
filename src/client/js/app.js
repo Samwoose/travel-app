@@ -2,6 +2,7 @@
 const numOfDaysInWeek = 7
 const maxNumOfDaysForForcast = 16
 let dataforUI = {
+    forcastDate:"",
     temperature:"",
     description:"",
     precipitation:"",
@@ -37,6 +38,98 @@ const numOfDaysCalculator = (arrivalDate) =>{
     let differenceInDays = differenceInTime / (1000 * 3600 * 24);
 
     return parseInt(differenceInDays)
+}
+
+const fetchCurrentHelper = ()=>{
+    fetch('http://localhost:8083/getCurrentWeather')
+                .then(res=>res.json())
+                .then(function(res){
+                    dataforUI.temperature = res.temperature
+                    dataforUI.description = res.description
+                    dataforUI.precipitation = res.precipitation
+                    dataforUI.cityName = res.cityName
+                    dataforUI.forcastDate = res.forcastDate
+                    fetch('http://localhost:8083/getPhotoOfCity')
+                    .then(res=>res.json())
+                    .then(function(res){
+                        console.log('here1')
+                        dataforUI.photoURL = res.photoURL
+                        fetch('http://localhost:8083/getFactOnCountry')
+                        .then(res=>res.json())
+                        .then(function(res){
+                            dataforUI.language = res.language
+                            dataforUI.region = res.region
+                            dataforUI.currency = res.currency
+                            // console.log(`this is data for ui1 : ${dataforUI.temperature}`)
+                            // console.log(`this is data for ui2 : ${dataforUI.description}`)
+                            // console.log(`this is data for ui3 : ${dataforUI.precipitation}`)
+                            // console.log(`this is data for ui4 : ${dataforUI.cityName}`)
+                            // console.log(`this is data for ui5 : ${dataforUI.photoURL}`)
+                            // console.log(`this is data for ui6 : ${dataforUI.language}`)
+                            // console.log(`this is data for ui7 : ${dataforUI.region}`)
+                            // console.log(`this is data for ui8 : ${dataforUI.currency}`)
+                            document.getElementById('forcastDate').innerHTML = "Forcast Date: " + dataforUI.forcastDate
+                            document.getElementById('description').innerHTML = "Description: " + dataforUI.description
+                            document.getElementById('temperature').innerHTML = "Temperature: " + dataforUI.temperature
+                            document.getElementById('percipitation').innerHTML = "Percipitation: " + dataforUI.precipitation
+                            document.getElementById('cityName').innerHTML = "City: " + dataforUI.cityName
+                            document.getElementById('language').innerHTML = "Language: " + dataforUI.language
+                            document.getElementById('region').innerHTML = "Region: " + dataforUI.region
+                            document.getElementById('currency').innerHTML = "Currency: " + dataforUI.currency
+                            document.getElementById('cityImage').src = dataforUI.photoURL
+                            document.getElementById('cityImage').alt = "City Image"
+                            document.querySelector('.holderEntry').style.width = "350px"
+                            document.querySelector('.holderEntry').style.backgroundColor = "skyblue"
+
+                        })
+                    })
+                })
+}
+
+const fetchFutureHelper = ()=>{
+    fetch('http://localhost:8083/getFutureWeather')
+                .then(res=>res.json())
+                .then(function(res){
+                    dataforUI.temperature = res.temperature
+                    dataforUI.description = res.description
+                    dataforUI.precipitation = res.precipitation
+                    dataforUI.cityName = res.cityName
+                    dataforUI.forcastDate = res.forcastDate
+                    fetch('http://localhost:8083/getPhotoOfCity')
+                    .then(res=>res.json())
+                    .then(function(res){
+                        console.log('here1')
+                        dataforUI.photoURL = res.photoURL
+                        fetch('http://localhost:8083/getFactOnCountry')
+                        .then(res=>res.json())
+                        .then(function(res){
+                            dataforUI.language = res.language
+                            dataforUI.region = res.region
+                            dataforUI.currency = res.currency
+                            // console.log(`this is data for ui1 : ${dataforUI.temperature}`)
+                            // console.log(`this is data for ui2 : ${dataforUI.description}`)
+                            // console.log(`this is data for ui3 : ${dataforUI.precipitation}`)
+                            // console.log(`this is data for ui4 : ${dataforUI.cityName}`)
+                            // console.log(`this is data for ui5 : ${dataforUI.photoURL}`)
+                            // console.log(`this is data for ui6 : ${dataforUI.language}`)
+                            // console.log(`this is data for ui7 : ${dataforUI.region}`)
+                            // console.log(`this is data for ui8 : ${dataforUI.currency}`)
+                            document.getElementById('forcastDate').innerHTML = "Forcast Date: " + dataforUI.forcastDate
+                            document.getElementById('description').innerHTML = "Description: " + dataforUI.description
+                            document.getElementById('temperature').innerHTML = "Temperature: " + dataforUI.temperature
+                            document.getElementById('percipitation').innerHTML = "Percipitation: " + dataforUI.precipitation
+                            document.getElementById('cityName').innerHTML = "City: " + dataforUI.cityName
+                            document.getElementById('language').innerHTML = "Language: " + dataforUI.language
+                            document.getElementById('region').innerHTML = "Region: " + dataforUI.region
+                            document.getElementById('currency').innerHTML = "Currency: " + dataforUI.currency
+                            document.getElementById('cityImage').src = dataforUI.photoURL
+                            document.getElementById('cityImage').alt = "City Image"
+                            document.querySelector('.holderEntry').style.width = "350px"
+                            document.querySelector('.holderEntry').style.backgroundColor = "skyblue"
+
+                        })
+                    })
+                })
 }
 
 /**
@@ -96,55 +189,10 @@ const numOfDaysCalculator = (arrivalDate) =>{
             //weather info
             // fetch('http://localhost:8083/getFutureWeather')
             if(differenceInDays < numOfDaysInWeek){
-                fetch('http://localhost:8083/getCurrentWeather')
-                .then(res=>res.json())
-                .then(function(res){
-                    dataforUI.temperature = res.temperature
-                    dataforUI.description = res.description
-                    dataforUI.precipitation = res.precipitation
-                    dataforUI.cityName = res.cityName
-                    fetch('http://localhost:8083/getPhotoOfCity')
-                    .then(res=>res.json())
-                    .then(function(res){
-                        console.log('here1')
-                        dataforUI.photoURL = res.photoURL
-                        fetch('http://localhost:8083/getFactOnCountry')
-                        .then(res=>res.json())
-                        .then(function(res){
-                            dataforUI.language = res.language
-                            dataforUI.region = res.region
-                            dataforUI.currency = res.currency
-                            console.log(`this is data for ui1 : ${dataforUI.temperature}`)
-                            console.log(`this is data for ui2 : ${dataforUI.description}`)
-                            console.log(`this is data for ui3 : ${dataforUI.precipitation}`)
-                            console.log(`this is data for ui4 : ${dataforUI.cityName}`)
-                            console.log(`this is data for ui5 : ${dataforUI.photoURL}`)
-                            console.log(`this is data for ui6 : ${dataforUI.language}`)
-                            console.log(`this is data for ui7 : ${dataforUI.region}`)
-                            console.log(`this is data for ui8 : ${dataforUI.currency}`)
-                            document.getElementById('description').innerHTML = "Description: " + dataforUI.description
-                            document.getElementById('temperature').innerHTML = "Temperature: " + dataforUI.temperature
-                            document.getElementById('percipitation').innerHTML = "Percipitation: " + dataforUI.precipitation
-                            document.getElementById('cityName').innerHTML = "City: " + dataforUI.cityName
-                            document.getElementById('language').innerHTML = "Language: " + dataforUI.language
-                            document.getElementById('region').innerHTML = "Region: " + dataforUI.region
-                            document.getElementById('currency').innerHTML = "Currency: " + dataforUI.currency
-                            document.getElementById('cityImage').src = dataforUI.photoURL
-                            document.getElementById('cityImage').alt = "City Image"
-
-                        })
-                    })
-                })
+                fetchCurrentHelper()
             }
             else if( numOfDaysInWeek <= differenceInDays && differenceInDays <= maxNumOfDaysForForcast){
-                fetch('http://localhost:8083/getFutureWeather')
-                .then(function(res){
-                    fetch('http://localhost:8083/getPhotoOfCity')
-                    .then(function(res){
-                        console.log('here2')
-                        fetch('http://localhost:8083/getFactOnCountry')
-                    })
-                })
+                fetchFutureHelper()
             }
             else if(maxNumOfDaysForForcast < differenceInDays){
                 alert('Too far to forcast')
