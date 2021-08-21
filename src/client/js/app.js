@@ -1,3 +1,5 @@
+// import {numOfDaysCalculator} from 'daysCalculator'
+
 /* Global Variables */
 const numOfDaysInWeek = 7
 const maxNumOfDaysForForcast = 16
@@ -18,25 +20,32 @@ const dateRestrictor = () =>{
     document.querySelector('#date').setAttribute('min',todayDate);
 }
 
-const numOfDaysCalculator = (arrivalDate) =>{
-    //test
-    const splittedDate = arrivalDate.split('-')
-    //reform date
-    const reformedDate = splittedDate[1] + '/' + splittedDate[2] + '/' + splittedDate[0]
-    // To set two dates to two variables
-    const todayDate = new Date().toLocaleString().split(',')[0]
-    let todayDateObj = new Date(todayDate)
-    let reformedDateObj = new Date(reformedDate);
+// /**
+//  * Calculate number of days between arrival date and today.
+//  * @param {string} arrivalDate arrival date in string type. e.g. 2021-08-21
+//  */
+// const numOfDaysCalculator = (arrivalDate) =>{
+//     //test
+//     const splittedDate = arrivalDate.split('-')
+//     //reform date
+//     const reformedDate = splittedDate[1] + '/' + splittedDate[2] + '/' + splittedDate[0]
+//     // To set two dates to two variables
+//     const todayDate = new Date().toLocaleString().split(',')[0]
+//     let todayDateObj = new Date(todayDate)
+//     let reformedDateObj = new Date(reformedDate);
          
-    // To calculate the time difference of two dates
-    let differenceInTime = reformedDateObj.getTime() - todayDateObj.getTime();
+//     // To calculate the time difference of two dates
+//     let differenceInTime = reformedDateObj.getTime() - todayDateObj.getTime();
          
-    // To calculate the no. of days between two dates
-    let differenceInDays = differenceInTime / (1000 * 3600 * 24);
+//     // To calculate the no. of days between two dates
+//     let differenceInDays = differenceInTime / (1000 * 3600 * 24);
 
-    return parseInt(differenceInDays)
-}
+//     return parseInt(differenceInDays)
+// }
 
+/**
+ * Help update view in html.
+ */
 const fetchCurrentHelper = ()=>{
     fetch('http://localhost:8083/getCurrentWeather')
                 .then(res=>res.json())
@@ -83,6 +92,9 @@ const fetchCurrentHelper = ()=>{
                 })
 }
 
+/**
+ * Help update view in html.
+ */
 const fetchFutureHelper = ()=>{
     fetch('http://localhost:8083/getFutureWeather')
                 .then(res=>res.json())
@@ -136,6 +148,7 @@ const fetchFutureHelper = ()=>{
  * @param {string} url endpoint that will trigger post request and save the data in server.
  * @param {string} nameOfCity Name of city user provides.
  * @param {string} arrivalDate arrival date user provides.
+ * @param {int} differenceInDays number of days between two dates
  * @return {json} newlyFormedData newly formed weather, date, and user response data in JSON
  */
  const postNameOfCityNDate = async (url,nameOfCity,arrivalDate,differenceInDays) => {
@@ -169,7 +182,7 @@ const fetchFutureHelper = ()=>{
     const nameOfCity = document.querySelector('#city').value;
     const arrivalDate = document.querySelector('#date').value;
     
-    let differenceInDays = numOfDaysCalculator(arrivalDate)
+    let differenceInDays = Client.numOfDaysCalculator(arrivalDate)
     // console.log(`splitted date: ${splittedDate[0]}`)
     // console.log(`splitted date: ${splittedDate[1]}`)
     // console.log(`splitted date: ${splittedDate[2]}`)
@@ -208,11 +221,11 @@ const fetchFutureHelper = ()=>{
 }
 
 //disable dates in the past in calendar
-// dateRestrictor()
+dateRestrictor()
 
 export { 
     dataUploader,
     postNameOfCityNDate,
     dateRestrictor,
-    numOfDaysCalculator
+    // numOfDaysCalculator
 }

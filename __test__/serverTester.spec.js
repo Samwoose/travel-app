@@ -1,7 +1,8 @@
+import { helper } from '../src/server/server'
 
-import {helper} from '../src/server/server' 
 
-test('it should call helper',()=>{
-    const output = "This is for tester"
-    expect(helper()).toEqual(output)
+describe('app to be defined', () => {
+    test('ensure app exists', () => {
+        expect(helper).toBeDefined();
+    })
 })

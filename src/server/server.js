@@ -188,10 +188,11 @@ app.get('/getFactOnCountry',async function(req, res){
     }
 })
 
+
 const helper = ()=>{
-    return "This is for tester"
+    return "helper"
 }
 
-export{
+module.exports = {
     helper
 }

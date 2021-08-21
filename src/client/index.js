@@ -9,12 +9,12 @@ import './styles/style.scss'
 import { dataUploader } from './js/app'
 import { postNameOfCityNDate } from './js/app'
 import { dateRestrictor } from './js/app'
-import { numberOfDaysCalculator} from './js/app'
+import { numOfDaysCalculator} from './js/daysCalculator'
 export{
     dataUploader,
     postNameOfCityNDate,
     dateRestrictor,
-    numberOfDaysCalculator
+    numOfDaysCalculator
 }
 
 // export {
