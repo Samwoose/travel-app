@@ -208,10 +208,11 @@ const fetchFutureHelper = ()=>{
 }
 
 //disable dates in the past in calendar
-dateRestrictor()
+// dateRestrictor()
 
 export { 
     dataUploader,
     postNameOfCityNDate,
-    dateRestrictor
+    dateRestrictor,
+    numOfDaysCalculator
 }

@@ -187,3 +187,11 @@ app.get('/getFactOnCountry',async function(req, res){
         console.log('Please acquire coordinate and country code first.')
     }
 })
+
+const helper = ()=>{
+    return "This is for tester"
+}
+
+export{
+    helper
+}
